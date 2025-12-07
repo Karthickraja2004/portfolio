@@ -663,23 +663,16 @@
       });
 
       // Resume download - attempts common filenames
+      // ✅ Simple Resume Download
       q('#downloadResume').addEventListener('click', () => {
-        const candidates = ['Karthick_Resume.pdf', 'Karthick_Resume (2).pdf', 'resume.pdf'];
-        let idx = 0;
-        function tryFetch() {
-          if (idx >= candidates.length) { alert('Resume not found in same folder. Place "Karthick_Resume.pdf" nearby or download from LinkedIn/GitHub.'); return; }
-          fetch(candidates[idx]).then(r => {
-            if (!r.ok) throw new Error('not found');
-            return r.blob();
-          }).then(blob => {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url; a.download = candidates[idx];
-            document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-          }).catch(() => { idx++; tryFetch(); });
-        }
-        tryFetch();
+        const link = document.createElement('a');
+        link.href = 'Karthick Raja U SDE.pdf'; // Your resume file name (place it in same folder)
+        link.download = 'Karthick Raja U SDE.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       });
+
 
       // Accessible keyboard: open project details with Enter when focused
       projectCards.forEach(card => {
@@ -773,3 +766,4 @@
 </body>
 
 </html>
+
